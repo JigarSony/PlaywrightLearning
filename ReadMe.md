@@ -1,0 +1,177 @@
+## This is Playwright Course by Rahul Shetty
+
+Pre-requisite 
+
+```
+Install Node/VSCode
+Create Folder Open that folder in VSCode
+````
+
+```
+type: npm init playwright
+Create newFile UIBasictest.spec.ts
+```
+
+const {test} = require('@playwright/test');
+
+javascript is `synchronous` language that means it will execute in parrallel (all steps at sametime)
+
+so that's why we need to write `await` keyword before each step to make it sequential
+
+`await works/activated with async functions only`
+
+function() is anonymous function
+
+you can also write same with ()=>
+
+// test can work with - browser, fixture is kind of global , so if we write in {} so 
+
+browser is fixture in playwiright use like this:  async ({browser}) =>
+
+```
+// const context = await browser.newContext();
+// const page = await context.newPage();
+// above two line can be replaced with another fixture called `page` 
+like this:  async ({page}) =>
+```
+
+Lecture 11: 
+
+playwright.config.js
+
+testDir - is directory of test
+
+timeout is for override existing timeout by default is 30 Sec
+
+[https://playwright.dev/docs/test-timeouts](https://playwright.dev/docs/test-timeouts)
+
+```
+for expect assertion  expect: {
+    timeout: 40 * 1000,
+  },
+```
+
+for browser need to write browsername: 'chromium'  
+
+to run npx playwright test - by default this is `headless` mode
+
+to headed mode - `npx playwright test --headed`
+
+if you need to run specific single run then use : `test.only`
+
+Lecture 12:
+
+Title
+
+Page.title
+
+To configure this --headed by defauls in cofig file
+
+`use: headless: false`
+
+Section 4
+
+Session/Lecture 13
+
+Locators: `Playwright use css and xpath`
+
+```
+// type and fill are same 
+await page.locator('#username').fill('hello@hello.com');
+
+// click
+await page.locator('#signInBtn').click();
+
+// textContent
+console.log(await page.locator("[style*='block']").textContent());
+
+// toContainText
+await expect(page.locator("[style*='block']")).toContainText("Incorrect");
+```
+
+Session 15
+
+Locator as variable and reusing 
+```
+test('Login with Variable', async({page})=>{
+
+    const userName = page.locator('#username');
+    const password = page.locator('#password');
+    const signIn = page.locator('#signInBtn');
+    // await userName.fill("");
+    await userName.fill("rahulshettyacademy");
+
+    // await password.fill("");
+    await password.fill("Learning@830$3mK2");
+    await signIn.click();
+    // console.log(await page.locator('.card-body a').textContent());
+    console.log(await page.locator('.card-body a').first().textContent());
+    console.log(await page.locator('.card-body a').nth(1).textContent());
+});
+```
+
+Session 16
+
+allTextContents()
+
+Fail if not written locator
+
+[https://playwright.dev/docs/actionability](https://playwright.dev/docs/actionability)
+
+Session 17
+
+Wait mechanisam
+
+check API/Service call > frontend reading
+
+This will wait networkcall untill ideal
+
+`await page.waitForLoadState('networkidle');`
+
+for single file run `npx playwright test test/ClientApp.spec.js`
+
+UI ControlsSpec - UI Control test
+
+```
+Dropdown
+You can select locator of dropdown
+Later select by value - selectOption()
+```
+```
+to pause browser
+page.pause();
+```
+```
+Radiobutton
+check locator - click
+```
+Session 20
+```
+Assertion for radiobuton expecte(locator).toBeChecked()
+.isChecked();
+```
+
+Session 21
+```
+Checkbox
+if validation outside the await is outside
+```
+
+Session 22
+```
+Blinking text
+GetLocator
+Expect().toHaveAttribute()
+```
+
+Session 23 - UIControls.spec - ChildWindow Handle
+
+Child window Handle
+
+Here there are two window and that goes in parrallel so needs to add into `Promise.all`
+
+Splitting text
+
+Entering into textbox
+
+GetTheValue - inputValue()
