@@ -164,7 +164,7 @@ GetLocator
 Expect().toHaveAttribute()
 ```
 
-Session 23 - UIControls.spec - ChildWindow Handle
+Session 24 - UIControls.spec - ChildWindow Handle
 
 Child window Handle
 
@@ -175,3 +175,5 @@ Splitting text
 Entering into textbox
 
 GetTheValue - inputValue()
+
+Section 6 - Session#27

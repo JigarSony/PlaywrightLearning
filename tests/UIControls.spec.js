@@ -49,7 +49,7 @@ test.only('Child window handle', async ({browser})=>{
     context.waitForEvent('page'), //listen for any new page: pending, rejected, fulllfiled
     documentlink.click(),
     ]) //new page is opened
-    // this above is togeather parrallelly - synchronously 
+    // this above is togeather Parallelly - a synchronously 
     
     // const text = await  newPage.locator(".red").textContent();
     const text = await newPage.locator(".red").textContent();
