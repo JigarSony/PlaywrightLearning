@@ -177,3 +177,20 @@ Entering into textbox
 GetTheValue - inputValue()
 
 Section 6 - Session#27
+
+Session#37 
+Playwright Special Locators
+
+page.Get - will suggest you
+
+getByLabel - Trace all label in page and check for text - and perform click/select option around that
+
+Another way to run TC
+npx playwright test --ui - open new window to select and run - Kind of test runner
+
+getByPlaceholder - Search for placeholder value
+
+getByRole - 
+
+getbyText - Scan Entire page and finding text
+
