@@ -197,3 +197,7 @@ getbyText - Scan Entire page and finding text
 Session#40 - ClientAppE2EOtherWay.spec.js
 in this replacing locator from css to playwright locator
 
+Session#42
+How to handle calendar - Calendat.spec.js
+
+
