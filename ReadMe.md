@@ -200,4 +200,19 @@ in this replacing locator from css to playwright locator
 Session#42
 How to handle calendar - Calendat.spec.js
 
+Session#45 - Debug
+npx playwright test <fileName> --debug : one inspactor open - codegen tool
 
+Session#46 - Record and playback with codegen
+npx playwright codegen <url>
+
+Session#47
+Add below properties in playwright.config.js file
+screenshot: 'on', - for every steps
+trace: 'on' - for debug
+
+for Report go to playwright-report > index.html > open path and see
+for trace : download zip > open : https://trace.playwright.dev/ > upload file
+
+for only failure trace
+trace: 'retain-on-failure'
