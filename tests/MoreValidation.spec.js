@@ -1,0 +1,22 @@
+// import { test } from '@playwright/test';
+const {test, expect} = require('@playwright/test')
+
+test("More Validations", async ({ page }) => {
+    await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
+    // await page.goto("https://www.google.com/");
+    // await page.goBack();
+    // await page.goForward();
+
+    await expect(page.locator('#displayed-text')).toBeVisible();
+    await page.locator('#hide-textbox').click();
+    await expect(page.locator('#displayed-text')).toBeHidden();
+
+    // pop up
+    page.on('dialog',dialog => dialog.accept()); // This will click/accept pop up confirm button
+    // page.on('dialog',dialog => dialog.dismiss()); // This will click/cancel pop up cancel/dismiss button
+    await page.locator('#confirmbtn').click();
+
+    // Mouse hover
+    page.locator('#mousehover').hover();
+    
+});

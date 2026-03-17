@@ -1,6 +1,6 @@
-## This is Playwright Course by Rahul Shetty
+# This is Playwright Course by Rahul Shetty
 
-Pre-requisite 
+## Pre-requisite
 
 ```
 Install Node/VSCode
@@ -59,7 +59,7 @@ to headed mode - `npx playwright test --headed`
 
 if you need to run specific single run then use : `test.only`
 
-Lecture 12:
+## Lecture 12
 
 Title
 
@@ -69,9 +69,9 @@ To configure this --headed by defauls in cofig file
 
 `use: headless: false`
 
-Section 4
+## Section 4
 
-Session/Lecture 13
+## Session/Lecture 13
 
 Locators: `Playwright use css and xpath`
 
@@ -164,7 +164,7 @@ GetLocator
 Expect().toHaveAttribute()
 ```
 
-Session 24 - UIControls.spec - ChildWindow Handle
+## Session 24 - UIControls.spec - ChildWindow Handle
 
 Child window Handle
 
@@ -176,9 +176,10 @@ Entering into textbox
 
 GetTheValue - inputValue()
 
-Section 6 - Session#27
+## Section 6 - Session#27
 
-Session#37 
+## Session#37
+
 Playwright Special Locators
 
 page.Get - will suggest you
@@ -190,29 +191,52 @@ npx playwright test --ui - open new window to select and run - Kind of test runn
 
 getByPlaceholder - Search for placeholder value
 
-getByRole - 
+getByRole -
 
 getbyText - Scan Entire page and finding text
 
-Session#40 - ClientAppE2EOtherWay.spec.js
+## Session#40 - ClientAppE2EOtherWay.spec.js
+
 in this replacing locator from css to playwright locator
 
-Session#42
+## Session#42
+
 How to handle calendar - Calendat.spec.js
 
-Session#45 - Debug
-npx playwright test <fileName> --debug : one inspactor open - codegen tool
+## Session#45 - Debug
 
-Session#46 - Record and playback with codegen
-npx playwright codegen <url>
+npx playwright test `<fileName>` --debug : one inspactor open - codegen tool
 
-Session#47
+## Session#46 - Record and playback with codegen
+
+npx playwright codegen `<url>`
+
+## Session#47
+
 Add below properties in playwright.config.js file
 screenshot: 'on', - for every steps
 trace: 'on' - for debug
 
 for Report go to playwright-report > index.html > open path and see
-for trace : download zip > open : https://trace.playwright.dev/ > upload file
+for trace : download zip > open : [https://trace.playwright.dev/](https://trace.playwright.dev/) > upload file
 
 for only failure trace
 trace: 'retain-on-failure'
+
+## Session#48 - More Validations
+
+```
+// import { test } from '@playwright/test';
+const {test, expect} = require('@playwright/test')
+
+test("More Validations", async ({ page }) => {
+    await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
+    // await page.goto("https://www.google.com/");
+    // await page.goBack();
+    // await page.goForward();
+
+    await expect(page.locator('#displayed-text')).toBeVisible();
+    await page.locator('#hide-textbox').click();
+    await expect(page.locator('#displayed-text')).toBeHidden();
+});
+```
