@@ -241,10 +241,20 @@ test("More Validations", async ({ page }) => {
 });
 ```
 
-## Session#49 - More validations
+## Session#49 50 - More validations
 When/if any same locator showing 2 matching 1 is non visible and 1 visible
 at that time use `:visible` for perform action on that
 
 ```
 await framepage.locator("li a[href*='lifetime-access']:visible").click(); 
 ```
+
+## Session#51
+Discuss about session storage in this lecture
+Login: UserName/Password - login API call under network tab -> Token stored in session storage 
+Directly insert in browser session to bypass login
+
+## Session#52 - WebAPIPart1.spec.js
+request library to perform api request - add into import
+apiContext same as browserContext
+post(), ok(), json()
