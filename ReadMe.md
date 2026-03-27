@@ -201,7 +201,7 @@ in this replacing locator from css to playwright locator
 
 ## Session#42
 
-How to handle calendar - Calendat.spec.js
+How to handle calendar - Calendar.spec.js
 
 ## Session#45 - Debug
 
@@ -239,4 +239,12 @@ test("More Validations", async ({ page }) => {
     await page.locator('#hide-textbox').click();
     await expect(page.locator('#displayed-text')).toBeHidden();
 });
+```
+
+## Session#49 - More validations
+When/if any same locator showing 2 matching 1 is non visible and 1 visible
+at that time use `:visible` for perform action on that
+
+```
+await framepage.locator("li a[href*='lifetime-access']:visible").click(); 
 ```
