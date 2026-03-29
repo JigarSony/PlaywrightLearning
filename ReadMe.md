@@ -256,5 +256,21 @@ Directly insert in browser session to bypass login
 
 ## Session#52 - WebAPIPart1.spec.js
 request library to perform api request - add into import
+
+```
 apiContext same as browserContext
 post(), ok(), json()
+```
+
+## Session#53 - WebAPIPart1.spec.js
+
+Some other api response methods
+```
+body, headers, status, statusText
+```
+To insert token -> Execute javascript -> playwright can execute any javascript
+page.addInitScript - to add any JS script run in playwright
+
+```
+window.localStorage.setItem('token',value)
+```
