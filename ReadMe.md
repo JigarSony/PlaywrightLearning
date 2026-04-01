@@ -274,3 +274,8 @@ page.addInitScript - to add any JS script run in playwright
 ```
 window.localStorage.setItem('token',value)
 ```
+
+## Session#54 - Try to Create an order via API
+- API Name - Create order - body - Headers and in response getting an order Id
+
+## Session#55 - 
