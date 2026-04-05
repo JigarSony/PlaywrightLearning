@@ -278,4 +278,91 @@ window.localStorage.setItem('token',value)
 ## Session#54 - Try to Create an order via API
 - API Name - Create order - body - Headers and in response getting an order Id
 
-## Session#55 - 
+## Session#57 and #58 - Refactoting API Code - APIUtils.js and WebAPIPart1WithUtil.spec.js
+
+```
+const {test,expect, request} = require('@playwright/test');
+class APIUtils {
+
+    constructor(apiContext,loginPayload){
+        this.apiContext = apiContext;
+        this.loginPayload = loginPayload;
+    }
+    async getToken(loginPayload) {
+        const loginResponse = await this.apiContext.post('https://rahulshettyacademy.com/api/ecom/auth/login', { data: loginPayload });
+        const loginResponseJson = await loginResponse.json();
+        const token = loginResponseJson.token;
+        console.log(token);
+        return token;
+    }
+
+    async createOrder(orderPayload){
+        let response = {};
+        response.token = await this.getToken();
+        const orderResponse = await this.apiContext.post('https://rahulshettyacademy.com/api/ecom/order/create-order',
+        {
+            data: orderPayload,
+            headers: {
+                'Authorization': response.token,
+                'Content-Type': 'applicatopn/json'
+            },
+        })
+        const orderResponseJson = await orderResponse.json();
+        console.log(orderResponseJson)
+        const orderId = await orderResponseJson.orders[0]; // currently getting an error here
+        console.log(orderId);
+        response.orderId = orderId;
+        return response;
+    }
+}
+
+module.exports = {APIUtils};
+```
+
+
+```
+const {test,expect, request} = require('@playwright/test');
+const loginPayload = {userEmail: "sonijigar94@gmail.com", userPassword: "Test1234"}
+const orderPayload = {orders:[{country:"Cuba",productOrderedId:"6960eac0c941646b7a8b3e68"}]}
+const {APIUtils} = require('./utils/APIUtils');
+let response;
+
+test.beforeAll( async() => {
+
+    // login API
+    const apiContext = await request.newContext();
+    const apiUtils = new APIUtils(apiContext,loginPayload);
+    response = await apiUtils.createOrder(orderPayload);
+});
+
+// create order is success
+test('Place an Order', async ({page})=>{
+
+    const apiUtils = new APIUtils(apiContext,loginPayload);
+
+    const orderId =  createOrder(orderPayload);
+    await page.addInitScript(value =>{
+        window.localStorage.setItem('token',value);
+    }, response.token );
+
+    await page.goto("https://rahulshettyacademy.com/client");
+
+    await page.locator("button[routerlink*='myorders']").click();
+
+    await page.locator("tbody").waitFor();
+
+    const rows = await page.locator("tbody tr");
+
+    for(let i=0; i < await rows.count(); ++i){
+        const rowOrderId = await rows.nth(i).locator("th").textContent();
+        if(response.orderId.includes(rowOrderId)){
+            await rows.nth(i).locator("button").first().click();
+            break;
+        }
+    }
+
+    const orderIdDetailsPage = await page.locator(".col-text").textContent();
+    await page.pause();
+    expect(response.orderId.includes(orderIdDetailsPage)).toBeTruthy();
+});
+```
