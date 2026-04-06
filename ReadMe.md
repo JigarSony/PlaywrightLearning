@@ -366,3 +366,41 @@ test('Place an Order', async ({page})=>{
     expect(response.orderId.includes(orderIdDetailsPage)).toBeTruthy();
 });
 ```
+
+## Session#61 - Store session into storage file - WebAPIPart2.spec.js
+state.json
+
+// Login once from UI UI
+// test,these scenario>  cart-,order, orderdetails, orderhistory
+// when login from UI > method called (storage state) - save into json file -> inject that json file in browser
+
+```
+await context.storageState({path:'state.json'});
+```
+
+```
+const {test, expect} = require('@playwright/test');
+
+test.beforeAll(async ({browser})=>{
+
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    await page.goto("https://rahulshettyacademy.com/client");
+
+    // login
+    await page.locator('#userEmail').fill('sonijigar94@gmail.com');
+    await page.locator('#userPassword').fill("Test1234");;
+    await page.locator('#login').click();
+    // wait for ideal in network calls
+    await page.waitForLoadState('networkidle');
+    // saving in storage - this will create state.json file will be create
+    await context.storageState({path:'state.json'});
+
+});
+
+test('Place an Order', async ({page})=>{});
+```
+
+```
+const page = await webContext.newPage();
+```
