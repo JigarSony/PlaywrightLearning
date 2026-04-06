@@ -404,3 +404,29 @@ test('Place an Order', async ({page})=>{});
 ```
 const page = await webContext.newPage();
 ```
+
+##Session#62
+
+```
+If you want to debug put --debug at end of the test command
+but this will work only for UI
+For API this will be skipped
+```
+
+```
+To achieve this
+Add testfile path under test
+cntrl/cmd + shift + p > prompt open debug npm script
+```
+
+add this to script package.json
+
+```
+"scripts": {
+    "test": "npx playwright test tests/WebAPIPart1.spec.js --headed"
+  },
+```
+
+ also increase timeout in playwright.config.js
+ 
+ timeout: 100 * 1000,
