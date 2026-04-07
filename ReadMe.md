@@ -429,4 +429,29 @@ add this to script package.json
 
  also increase timeout in playwright.config.js
  
- timeout: 100 * 1000,
+ > timeout: 100 * 1000,
+
+## Lect #63 - Trace view for API
+
+> To Track Failure for API ```turn on trace in Playwright.config.js```
+> Upload Trace file in ```https://trace.playwright.dev/``` and analyse
+> If web use playwright Inspector tool
+
+## Lect #64 - Intercept(alter/faker) Network call
+
+## Lect #65 - Intercepting demo - NetworkTest.spec.js
+
+```
+
+await page.route("https://rahulshettyacademy.com/api/ecom/order/get-orders-for-customer/*",
+        async route=>{
+            //intercepting response -> API response -> {Needs to meke Fake Response here} to Browser - > Render the data on Front End
+            const response = await page.request.fetch(route.request());
+            let body = JSON.stringify(fakePayLoadOrders); // convertinf JS to JSON
+            route.fulfill({
+                response,
+                body, // faking response here
+            });
+        }
+    );
+```
