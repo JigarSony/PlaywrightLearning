@@ -24,7 +24,7 @@ function() is anonymous function
 
 you can also write same with ()=>
 
-// test can work with - browser, fixture is kind of global , so if we write in {} so 
+// test can work with - browser, fixture is kind of global , so if we write in {} so
 
 browser is fixture in playwiright use like this:  async ({browser}) =>
 
@@ -35,7 +35,7 @@ browser is fixture in playwiright use like this:  async ({browser}) =>
 like this:  async ({page}) =>
 ```
 
-Lecture 11: 
+Lecture 11:
 
 playwright.config.js
 
@@ -91,7 +91,8 @@ await expect(page.locator("[style*='block']")).toContainText("Incorrect");
 
 Session 15
 
-Locator as variable and reusing 
+Locator as variable and reusing
+
 ```
 test('Login with Variable', async({page})=>{
 
@@ -137,27 +138,33 @@ Dropdown
 You can select locator of dropdown
 Later select by value - selectOption()
 ```
+
 ```
 to pause browser
 page.pause();
 ```
+
 ```
 Radiobutton
 check locator - click
 ```
+
 Session 20
+
 ```
 Assertion for radiobuton expecte(locator).toBeChecked()
 .isChecked();
 ```
 
 Session 21
+
 ```
 Checkbox
 if validation outside the await is outside
 ```
 
 Session 22
+
 ```
 Blinking text
 GetLocator
@@ -242,6 +249,7 @@ test("More Validations", async ({ page }) => {
 ```
 
 ## Session#49 50 - More validations
+
 When/if any same locator showing 2 matching 1 is non visible and 1 visible
 at that time use `:visible` for perform action on that
 
@@ -250,11 +258,13 @@ await framepage.locator("li a[href*='lifetime-access']:visible").click();
 ```
 
 ## Session#51
+
 Discuss about session storage in this lecture
-Login: UserName/Password - login API call under network tab -> Token stored in session storage 
+Login: UserName/Password - login API call under network tab -> Token stored in session storage
 Directly insert in browser session to bypass login
 
 ## Session#52 - WebAPIPart1.spec.js
+
 request library to perform api request - add into import
 
 ```
@@ -265,9 +275,11 @@ post(), ok(), json()
 ## Session#53 - WebAPIPart1.spec.js
 
 Some other api response methods
+
 ```
 body, headers, status, statusText
 ```
+
 To insert token -> Execute javascript -> playwright can execute any javascript
 page.addInitScript - to add any JS script run in playwright
 
@@ -276,12 +288,12 @@ window.localStorage.setItem('token',value)
 ```
 
 ## Session#54 - Try to Create an order via API
+
 - API Name - Create order - body - Headers and in response getting an order Id
 
 ## Session#57 and #58 - Refactoting API Code - APIUtils.js and WebAPIPart1WithUtil.spec.js
 
 ```
-const {test,expect, request} = require('@playwright/test');
 class APIUtils {
 
     constructor(apiContext,loginPayload){
@@ -289,7 +301,7 @@ class APIUtils {
         this.loginPayload = loginPayload;
     }
     async getToken(loginPayload) {
-        const loginResponse = await this.apiContext.post('https://rahulshettyacademy.com/api/ecom/auth/login', { data: loginPayload });
+        const loginResponse = await this.apiContext.post("https://rahulshettyacademy.com/api/ecom/auth/login", { data: this.loginPayload });
         const loginResponseJson = await loginResponse.json();
         const token = loginResponseJson.token;
         console.log(token);
@@ -299,12 +311,13 @@ class APIUtils {
     async createOrder(orderPayload){
         let response = {};
         response.token = await this.getToken();
-        const orderResponse = await this.apiContext.post('https://rahulshettyacademy.com/api/ecom/order/create-order',
+        const orderResponse = await this.apiContext.post("https://rahulshettyacademy.com/api/ecom/order/create-order",
         {
             data: orderPayload,
             headers: {
+                // 'Authorization': this.getToken(),
                 'Authorization': response.token,
-                'Content-Type': 'applicatopn/json'
+                'Content-Type': 'application/json'
             },
         })
         const orderResponseJson = await orderResponse.json();
@@ -319,33 +332,32 @@ class APIUtils {
 module.exports = {APIUtils};
 ```
 
-
-```
-const {test,expect, request} = require('@playwright/test');
-const loginPayload = {userEmail: "sonijigar94@gmail.com", userPassword: "Test1234"}
-const orderPayload = {orders:[{country:"Cuba",productOrderedId:"6960eac0c941646b7a8b3e68"}]}
-const {APIUtils} = require('./utils/APIUtils');
+```const { test, expect, request } = require('@playwright/test');
+const loginPayload = { userEmail: "sonijigar94@gmail.com", userPassword: "Test1234" }
+const orderPayload = { orders: [{ country: "Cuba", productOrderedId: "6960eac0c941646b7a8b3e68" }] }
+const { APIUtils } = require('./utils/APIUtils');
 let response;
 
-test.beforeAll( async() => {
+
+test.beforeAll(async () => {
 
     // login API
     const apiContext = await request.newContext();
-    const apiUtils = new APIUtils(apiContext,loginPayload);
+    const apiUtils = new APIUtils(apiContext, loginPayload);
     response = await apiUtils.createOrder(orderPayload);
 });
 
 // create order is success
-test('Place an Order', async ({page})=>{
+test('Place an Order', async ({ page }) => {
 
-    const apiUtils = new APIUtils(apiContext,loginPayload);
-
-    const orderId =  createOrder(orderPayload);
-    await page.addInitScript(value =>{
-        window.localStorage.setItem('token',value);
-    }, response.token );
+    await page.addInitScript(value => {
+        window.localStorage.setItem('token', value);
+    }, response.token);
 
     await page.goto("https://rahulshettyacademy.com/client");
+
+    //const
+    const email = 'anshika@gmail.com'
 
     await page.locator("button[routerlink*='myorders']").click();
 
@@ -353,9 +365,9 @@ test('Place an Order', async ({page})=>{
 
     const rows = await page.locator("tbody tr");
 
-    for(let i=0; i < await rows.count(); ++i){
+    for (let i = 0; i < await rows.count(); ++i) {
         const rowOrderId = await rows.nth(i).locator("th").textContent();
-        if(response.orderId.includes(rowOrderId)){
+        if (response.orderId.includes(rowOrderId)) {
             await rows.nth(i).locator("button").first().click();
             break;
         }
@@ -368,6 +380,7 @@ test('Place an Order', async ({page})=>{
 ```
 
 ## Session#61 - Store session into storage file - WebAPIPart2.spec.js
+
 state.json
 
 // Login once from UI UI
@@ -405,7 +418,7 @@ test('Place an Order', async ({page})=>{});
 const page = await webContext.newPage();
 ```
 
-##Session#62
+## Session#62
 
 ```
 If you want to debug put --debug at end of the test command
@@ -428,7 +441,7 @@ add this to script package.json
 ```
 
  also increase timeout in playwright.config.js
- 
+
  > timeout: 100 * 1000,
 
 ## Lect #63 - Trace view for API

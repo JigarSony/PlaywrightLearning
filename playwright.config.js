@@ -6,7 +6,7 @@ import { defineConfig, devices } from '@playwright/test';
  */
 const config = ({
   testDir: './tests',
-  timeout: 300 *1000,
+  timeout: 300 * 1000,
   expect: {
     timeout: 5 * 1000,
   },
@@ -17,7 +17,7 @@ const config = ({
     headless: false,
     screenshot: 'on',
     // trace: 'on'
-    trace: 'on'//'retain-on-failure' // off, on
+    trace: 'on' //'retain-on-failure' // off, on
   }
 });
 
