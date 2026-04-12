@@ -2,13 +2,7 @@ const { test, expect, request } = require('@playwright/test');
 const loginPayload = { userEmail: "sonijigar94@gmail.com", userPassword: "Test1234" }
 const orderPayload = { orders: [{ country: "Cuba", productOrderedId: "6960eae1c941646b7a8b3ed3" }] }
 const { APIUtils } = require('./utils/APIUtils');
-// let orderId;
-// let token;
 let response;
-// when you declare variable const to declare value here it self
-// right now we don't have any value, so - let
-// let means - later
-
 const fakePayLoadOrders = { data: [], message: "No Orders" }
 
 test.beforeAll(async () => {
@@ -22,9 +16,6 @@ test.beforeAll(async () => {
 // create order is success
 test('Place an Order', async ({ page }) => {
 
-    const apiUtils = new APIUtils(apiContext, loginPayload);
-
-    const orderId = createOrder(orderPayload);
     await page.addInitScript(value => {
         window.localStorage.setItem('token', value);
     }, response.token);
