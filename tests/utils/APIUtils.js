@@ -1,4 +1,3 @@
-const {test,expect, request} = require('@playwright/test');
 class APIUtils {
 
     constructor(apiContext,loginPayload){
@@ -6,7 +5,7 @@ class APIUtils {
         this.loginPayload = loginPayload;
     }
     async getToken(loginPayload) {
-        const loginResponse = await this.apiContext.post('https://rahulshettyacademy.com/api/ecom/auth/login', { data: loginPayload });
+        const loginResponse = await this.apiContext.post("https://rahulshettyacademy.com/api/ecom/auth/login", { data: this.loginPayload });
         const loginResponseJson = await loginResponse.json();
         const token = loginResponseJson.token;
         console.log(token);
@@ -16,12 +15,13 @@ class APIUtils {
     async createOrder(orderPayload){
         let response = {};
         response.token = await this.getToken();
-        const orderResponse = await this.apiContext.post('https://rahulshettyacademy.com/api/ecom/order/create-order',
+        const orderResponse = await this.apiContext.post("https://rahulshettyacademy.com/api/ecom/order/create-order",
         {
             data: orderPayload,
             headers: {
+                // 'Authorization': this.getToken(),
                 'Authorization': response.token,
-                'Content-Type': 'applicatopn/json'
+                'Content-Type': 'application/json'
             },
         })
         const orderResponseJson = await orderResponse.json();
