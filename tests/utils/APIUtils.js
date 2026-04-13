@@ -26,7 +26,7 @@ class APIUtils {
         })
         const orderResponseJson = await orderResponse.json();
         console.log(orderResponseJson)
-        const orderId = await orderResponseJson.orders[0]; // currently getting an error here
+        const orderId = await orderResponseJson.orders[0]; // currently getting an error here --fixed
         console.log(orderId);
         response.orderId = orderId;
         return response;
