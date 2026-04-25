@@ -501,3 +501,24 @@ test('Security test request intercept', async({page})=>{
     await expect(page.locator(".blink_me")).toHaveText('You are not authorize to view this order');
 })
 ```
+
+
+## Lect #70 - how to abort the network call - NetworkTest3.spec.js
+
+
+```
+page.route('**/*.css',route => route.abort()); 
+```
+This above code will block all network calls ending with css
+
+
+```
+page.route('**/*.{jpg,png,jpeg,css}',route => route.abort());
+```
+
+playwright tracks every requests what made through network tabs
+
+```
+page.on('request',request => console.log(request.url()));
+page.on('response', response => console.log(response.url(), response.status()));
+```
