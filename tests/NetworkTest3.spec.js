@@ -5,8 +5,8 @@ test('How to block some network calls', async ({browser}) =>
     const context = await browser.newContext();
     const page = await context.newPage();
 
-    // page.route('**/*.css',route => route.abort());
-    //page.route('**/*.{jpg,png,jpeg,css}',route => route.abort());
+    // page.route('**/*.css',route => route.abort()); - Single
+    page.route('**/*.{jpg,png,jpeg,css}',route => route.abort()); // Multiple Block
 
     page.on('request',request => console.log(request.url()));
 
@@ -21,6 +21,4 @@ test('How to block some network calls', async ({browser}) =>
     // page.locator('#terms').click();
     await page.locator('#signInBtn').click();
     console.log(await page.locator("[style*='block']").textContent());
-
-    browser.close();
 });
