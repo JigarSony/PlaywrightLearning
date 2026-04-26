@@ -1,6 +1,6 @@
 const {test, expect} = require('@playwright/test');
 
-test('Screenshot & Visual Comparision', async ({page})=>{
+test('Screenshot', async ({page})=>{
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
     await expect(page.locator('#displayed-text')).toBeVisible();
     // await page.screenshot({path:'screenshot.png'});

@@ -561,7 +561,7 @@ File
 ```javascript
 const {test, expect} = require('@playwright/test');
 
-test('Screenshot & Visual Comparision', async ({page})=>{
+test('Screenshot', async ({page})=>{
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
     await expect(page.locator('#displayed-text')).toBeVisible();
     // await page.screenshot({path:'screenshot.png'});
@@ -571,5 +571,24 @@ test('Screenshot & Visual Comparision', async ({page})=>{
     await expect(page.locator('#displayed-text')).toBeHidden();
     // await page.screenshot({path:'hiddenScreenshotFull.png',fullPage: true});
     // await page.locator('#displayed-text').screenshot({path:'hiddenElement.png'});
+});
+```
+
+## Lect#72 - Visual Testing - Lect72_VisialTesting.spec.js
+
+How that works?
+Screenshot - store -> Daily Run taking Screenshot - If any thing changed it will report failure - Something like Image Comparision
+
+```javascript
+expect(await page.screenshot()).toMatchSnapshot('visualTest.png');
+```
+
+File
+```javascript
+const {test, expect} = require('@playwright/test');
+
+test('Visual Testing Comparision', async ({page})=>{
+    await page.goto('https://www.flightaware.com/live/findflight/');
+    
 });
 ```
