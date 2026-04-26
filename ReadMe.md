@@ -548,3 +548,29 @@ test('How to block some network calls', async ({browser}) =>
     console.log(await page.locator("[style*='block']").textContent());
 });
 ```
+
+## Lect#71 - How to Capture Screenshot - Lect71_ScreenshotAndVisualComparirison.spec.js
+
+```
+await page.screenshot({path:'screenshot.png'}); - This method will take Screenshot
+await page.screenshot({path:'screenshotFull.png',fullPage: true}); - This arguments will take Full Screenshot
+await page.locator('#displayed-text').screenshot({path:'visibleElement.png'}); - This will take only element Screenshot
+```
+
+File
+
+```
+const {test, expect} = require('@playwright/test');
+
+test('Screenshot & Visual Comparision', async ({page})=>{
+    await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
+    await expect(page.locator('#displayed-text')).toBeVisible();
+    // await page.screenshot({path:'screenshot.png'});
+    // await page.screenshot({path:'screenshotFull.png',fullPage: true});
+    await page.locator('#displayed-text').screenshot({path:'visibleElement.png'});
+    await page.locator('#hide-textbox').click();
+    await expect(page.locator('#displayed-text')).toBeHidden();
+    // await page.screenshot({path:'hiddenScreenshotFull.png',fullPage: true});
+    // await page.locator('#displayed-text').screenshot({path:'hiddenElement.png'});
+});
+```
