@@ -2,12 +2,12 @@
 
 ## Pre-requisite
 
-```
+```text
 Install Node/VSCode
 Create Folder Open that folder in VSCode
-````
-
 ```
+
+```text
 type: npm init playwright
 Create newFile UIBasictest.spec.ts
 ```
@@ -28,7 +28,7 @@ you can also write same with ()=>
 
 browser is fixture in playwiright use like this:  async ({browser}) =>
 
-```
+```javascript
 // const context = await browser.newContext();
 // const page = await context.newPage();
 // above two line can be replaced with another fixture called `page` 
@@ -502,15 +502,13 @@ test('Security test request intercept', async({page})=>{
 })
 ```
 
-
 ## Lect #70 - how to abort the network call - NetworkTest3.spec.js
-
 
 ```
 page.route('**/*.css',route => route.abort()); 
 ```
-This above code will block all network calls ending with css
 
+This above code will block all network calls ending with css
 
 ```
 page.route('**/*.{jpg,png,jpeg,css}',route => route.abort());
@@ -524,6 +522,7 @@ page.on('response', response => console.log(response.url(), response.status()));
 ```
 
 File
+
 ```
 const {test, expect} = require('@playwright/test');
 
@@ -559,7 +558,7 @@ await page.locator('#displayed-text').screenshot({path:'visibleElement.png'}); -
 
 File
 
-```
+```javascript
 const {test, expect} = require('@playwright/test');
 
 test('Screenshot & Visual Comparision', async ({page})=>{
