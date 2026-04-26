@@ -45,7 +45,7 @@ timeout is for override existing timeout by default is 30 Sec
 
 [https://playwright.dev/docs/test-timeouts](https://playwright.dev/docs/test-timeouts)
 
-```
+```javascript
 for expect assertion  expect: {
     timeout: 40 * 1000,
   },
@@ -75,7 +75,7 @@ To configure this --headed by defauls in cofig file
 
 Locators: `Playwright use css and xpath`
 
-```
+```text
 // type and fill are same 
 await page.locator('#username').fill('hello@hello.com');
 
@@ -93,7 +93,7 @@ Session 15
 
 Locator as variable and reusing
 
-```
+```javascript
 test('Login with Variable', async({page})=>{
 
     const userName = page.locator('#username');
@@ -133,39 +133,39 @@ for single file run `npx playwright test test/ClientApp.spec.js`
 
 UI ControlsSpec - UI Control test
 
-```
+```text
 Dropdown
 You can select locator of dropdown
 Later select by value - selectOption()
 ```
 
-```
+```text
 to pause browser
 page.pause();
 ```
 
-```
+```text
 Radiobutton
 check locator - click
 ```
 
 Session 20
 
-```
+```text
 Assertion for radiobuton expecte(locator).toBeChecked()
 .isChecked();
 ```
 
 Session 21
 
-```
+```text
 Checkbox
 if validation outside the await is outside
 ```
 
 Session 22
 
-```
+```text
 Blinking text
 GetLocator
 Expect().toHaveAttribute()
@@ -232,7 +232,7 @@ trace: 'retain-on-failure'
 
 ## Session#48 - More Validations
 
-```
+```javascript
 // import { test } from '@playwright/test';
 const {test, expect} = require('@playwright/test')
 
@@ -253,7 +253,7 @@ test("More Validations", async ({ page }) => {
 When/if any same locator showing 2 matching 1 is non visible and 1 visible
 at that time use `:visible` for perform action on that
 
-```
+```javascript
 await framepage.locator("li a[href*='lifetime-access']:visible").click(); 
 ```
 
@@ -267,7 +267,7 @@ Directly insert in browser session to bypass login
 
 request library to perform api request - add into import
 
-```
+```text
 apiContext same as browserContext
 post(), ok(), json()
 ```
@@ -276,14 +276,14 @@ post(), ok(), json()
 
 Some other api response methods
 
-```
+```text
 body, headers, status, statusText
 ```
 
 To insert token -> Execute javascript -> playwright can execute any javascript
 page.addInitScript - to add any JS script run in playwright
 
-```
+```text
 window.localStorage.setItem('token',value)
 ```
 
@@ -293,7 +293,7 @@ window.localStorage.setItem('token',value)
 
 ## Session#57 and #58 - Refactoting API Code - APIUtils.js and WebAPIPart1WithUtil.spec.js
 
-```
+```javascript
 class APIUtils {
 
     constructor(apiContext,loginPayload){
@@ -332,7 +332,8 @@ class APIUtils {
 module.exports = {APIUtils};
 ```
 
-```const { test, expect, request } = require('@playwright/test');
+```javascript
+const { test, expect, request } = require('@playwright/test');
 const loginPayload = { userEmail: "sonijigar94@gmail.com", userPassword: "Test1234" }
 const orderPayload = { orders: [{ country: "Cuba", productOrderedId: "6960eac0c941646b7a8b3e68" }] }
 const { APIUtils } = require('./utils/APIUtils');
@@ -387,11 +388,11 @@ state.json
 // test,these scenario>  cart-,order, orderdetails, orderhistory
 // when login from UI > method called (storage state) - save into json file -> inject that json file in browser
 
-```
+```javascript
 await context.storageState({path:'state.json'});
 ```
 
-```
+```javascript
 const {test, expect} = require('@playwright/test');
 
 test.beforeAll(async ({browser})=>{
@@ -414,19 +415,19 @@ test.beforeAll(async ({browser})=>{
 test('Place an Order', async ({page})=>{});
 ```
 
-```
+```javascript
 const page = await webContext.newPage();
 ```
 
 ## Session#62
 
-```
+```javascript
 If you want to debug put --debug at end of the test command
 but this will work only for UI
 For API this will be skipped
 ```
 
-```
+```javascript
 To achieve this
 Add testfile path under test
 cntrl/cmd + shift + p > prompt open debug npm script
@@ -434,7 +435,7 @@ cntrl/cmd + shift + p > prompt open debug npm script
 
 add this to script package.json
 
-```
+```javascript
 "scripts": {
     "test": "npx playwright test tests/WebAPIPart1.spec.js --headed"
   },
@@ -454,8 +455,7 @@ add this to script package.json
 
 ## Lect #65 - Intercepting demo - NetworkTest.spec.js
 
-```
-
+```javascript
 await page.route("https://rahulshettyacademy.com/api/ecom/order/get-orders-for-customer/*",
         async route=>{
             //intercepting response -> API response -> {Needs to meke Fake Response here} to Browser - > Render the data on Front End
@@ -471,7 +471,7 @@ await page.route("https://rahulshettyacademy.com/api/ecom/order/get-orders-for-c
 
 ## Lect #67 #68 - Intercepting Order View/Details - NetworkTest2.spec.js
 
-```
+```javascript
 const { test, expect, request } = require('@playwright/test');
 
 test('Security test request intercept', async({page})=>{
@@ -504,26 +504,26 @@ test('Security test request intercept', async({page})=>{
 
 ## Lect #70 - how to abort the network call - NetworkTest3.spec.js
 
-```
+```javascript
 page.route('**/*.css',route => route.abort()); 
 ```
 
 This above code will block all network calls ending with css
 
-```
+```javascript
 page.route('**/*.{jpg,png,jpeg,css}',route => route.abort());
 ```
 
 playwright tracks every requests what made through network tabs
 
-```
+```javascript
 page.on('request',request => console.log(request.url()));
 page.on('response', response => console.log(response.url(), response.status()));
 ```
 
 File
 
-```
+```javascript
 const {test, expect} = require('@playwright/test');
 
 test('How to block some network calls', async ({browser}) =>
@@ -550,7 +550,7 @@ test('How to block some network calls', async ({browser}) =>
 
 ## Lect#71 - How to Capture Screenshot - Lect71_ScreenshotAndVisualComparirison.spec.js
 
-```
+```javascript
 await page.screenshot({path:'screenshot.png'}); - This method will take Screenshot
 await page.screenshot({path:'screenshotFull.png',fullPage: true}); - This arguments will take Full Screenshot
 await page.locator('#displayed-text').screenshot({path:'visibleElement.png'}); - This will take only element Screenshot
