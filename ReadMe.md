@@ -699,3 +699,114 @@ writeExcelTest("Mango", 350, { rowChange: 0, colChange: 2 }, "/Users/jigarsony/D
 // how to run this - locate till this folder - node <fileName>
 // update mango proce to 250
 ```
+
+## Lect-78 - Download -> UpdateExcel -> UploadExcel -> Validate from Playwright
+
+```javascript
+const ExcelJs = require('exceljs');
+const { test, expect } = require('@playwright/test');
+
+async function writeExcelTest(searchText, replaceText, change, filePath) {
+    const workbook = new ExcelJs.Workbook();
+    // https://rahulshettyacademy.com/upload-download-test/index.html
+    await workbook.xlsx.readFile(filePath);
+    const worksheet = workbook.getWorksheet('Sheet1');
+    const output = await readExcel(worksheet, searchText);
+    // replace cell value in excel
+    const cell = worksheet.getCell(output.row + change.rowChange, output.column + change.colChange);
+    cell.value = replaceText;
+    await workbook.xlsx.writeFile("/Users/jigarsony/Downloads/excelDownloadTest.xlsx");
+}
+
+async function readExcel(worksheet, searchText) {
+    let output = { row: -1, column: -1 };
+    //get all or specific text
+    worksheet.eachRow((row, rowNumber) => {
+        row.eachCell((cell, colNumber) => {
+            //console.log(cell.value) //- print all ExcelSheet
+            if (cell.value === searchText) {
+                // console.log(rowNumber);
+                // console.log(colNumber);
+                output.row = rowNumber;
+                output.column = colNumber;
+            }
+        })
+    })
+    return output;
+}
+// how to run this - locate till this folder - node <fileName>
+// update mango proce to 250
+
+test('DownloadUpdateUploadAndValidateExcel', async ({ page }) => {
+
+    const textSearch = "Mango";
+    const updateValue = '350';
+    await page.goto("https://rahulshettyacademy.com/upload-download-test/index.html")
+    const downloadPromise = page.waitForEvent('download');
+    await page.getByRole('button',{name:'Download'}).click();
+    await downloadPromise;
+    writeExcelTest("Mango", 350, { rowChange: 0, colChange: 2 }, "/Users/jigarsony/Downloads/download.xlsx");
+    await page.locator('#fileinput').click();
+    // uploadFile
+    await page.locator('#fileinput').setInputFiles("/Users/jigarsony/Downloads/download.xlsx");
+    // this only works when you component have attribute -> type="file"
+    // upload is not working
+    const textlocator = page.getByText(textSearch);
+    const desiredRow = await page.getByRole('row').filter({has: textlocator});
+    await expect(desiredRow.locator('#cell-4-undefined')).toContainText(updateValue);
+});
+```
+
+Author Code
+
+```javascript
+const ExcelJs = require('exceljs');
+const { test, expect } = require('@playwright/test');
+ 
+async function writeExcelTest(searchText, replaceText, change, filePath) {
+  const workbook = new ExcelJs.Workbook();
+  await workbook.xlsx.readFile(filePath);
+  const worksheet = workbook.getWorksheet('Sheet1');
+  const output = readExcel(worksheet, searchText); // not async
+ 
+  const cell = worksheet.getCell(output.row, output.column + change.colChange);
+  cell.value = replaceText;
+  await workbook.xlsx.writeFile(filePath);
+}
+ 
+// This does no async work, so don't mark it async.
+function readExcel(worksheet, searchText) {
+  let output = { row: -1, column: -1 };
+  worksheet.eachRow((row, rowNumber) => {
+    row.eachCell((cell, colNumber) => {
+      if (cell.value === searchText) {
+        output = { row: rowNumber, column: colNumber };
+      }
+    });
+  });
+  return output;
+}
+ 
+//update Mango Price to 350. 
+//writeExcelTest("Mango",350,{rowChange:0,colChange:2},"/Users/rahulshetty/downloads/excelTest.xlsx");
+ 
+test('Upload download excel validation', async ({ page }) => {
+  const textSearch = 'Mango';
+  const updateValue = '350';
+ 
+  await page.goto('https://rahulshettyacademy.com/upload-download-test/index.html');
+ 
+  const download = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Download' }).click();
+  const dl = await download;
+  const filePath = '/Users/rahulshetty/downloads/download.xlsx'; // or await dl.path()
+ 
+  // ✅ Ensure the edit finishes before upload
+  await writeExcelTest(textSearch, updateValue, { rowChange: 0, colChange: 2 }, filePath);
+ 
+  await page.locator('#fileinput').setInputFiles(filePath);
+ 
+  const desiredRow = await page.getByRole('row').filter({ has: page.getByText(textSearch) });
+  await expect(desiredRow.locator('#cell-4-undefined')).toContainText(updateValue);
+});
+```
