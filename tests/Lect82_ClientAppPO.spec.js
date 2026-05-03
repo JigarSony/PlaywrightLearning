@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 import { POManager } from '../pageobjects/POManager';
 
-test('Client App Login E2E', async ({ page }) => {
+test('Client App Login E2E in Page Object', async ({ page }) => {
     //const
     const username = 'sonijigar94@gmail.com';
     const password = 'Test1234';
