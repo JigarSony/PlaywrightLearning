@@ -1035,7 +1035,7 @@ module.exports = {POManager};
 See other POFiles
 ```
 
-## Lect#86 - Drive the data from external jsoni files to playwright-placeorderTestData.json
+## Lect#86 - Drive the data from external json files to playwright-placeorderTestData.json
 
 ```json
 {
@@ -1072,4 +1072,51 @@ test('Client App Login E2E in Page Object', async ({ page }) => {
     await orderHistoryPage.searchorderAndSelect(orderId)
     expect(orderId.includes(await orderHistoryPage.getOrderId())).toBeTruthy();
 });
+```
+
+## Lect#87 - Drive the data from external json files with iteration to playwright-placeorderTestDataIte.json
+
+```javascript
+const { test, expect } = require('@playwright/test');
+import { POManager } from '../pageobjects/POManager';
+// JSON->String->js object
+const dataset = JSON.parse(JSON.stringify(require("../utils/placeorderTestDataIte.json")));
+
+for(const data of dataset){
+test(`Client App Login E2E in Page Object with Json and Iteration ${data.productName}`, async ({ page }) => {
+    
+    const poManager = new POManager(page);
+    const loginPage = poManager.getLoginPage();
+    await loginPage.goTo();
+    await loginPage.validLogin(data.username, data.password);
+    const dashboardPage = poManager.getDashboardPage();
+    await dashboardPage.searchProductAddCart(data.productName);
+    await dashboardPage.navigateToCart();
+    const cartPage = poManager.getCartPage();
+    await cartPage.verifyProductIsDisplayed(data.productName);
+    await cartPage.Checkout();
+    const orderReviewPage = poManager.getOrderReviewPage();
+    await orderReviewPage.searchCountryAndSelect("ind", "India");
+    const orderId = await orderReviewPage.SubmitAndGetOrderId(data.username);
+    console.log(orderId);
+    await dashboardPage.navigateToOrders();
+    const orderHistoryPage = poManager.getOrderHistoryPage();
+    await orderHistoryPage.searchorderAndSelect(orderId)
+    expect(orderId.includes(await orderHistoryPage.getOrderId())).toBeTruthy();
+});
+}
+```
+
+```json
+[{
+    "username": "sonijigar94@gmail.com",
+    "password": "Test1234",
+    "productName": "ZARA COAT 3"
+},
+{
+    "username": "rahulshetty@gmail.com",
+    "password": "Iamking@00",
+    "productName": "ADIDAS ORIGINAL"
+}
+]
 ```
