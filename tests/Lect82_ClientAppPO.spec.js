@@ -1,26 +1,23 @@
 const { test, expect } = require('@playwright/test');
 import { POManager } from '../pageobjects/POManager';
+// JSON->String->js object
+const dataset = JSON.parse(JSON.stringify(require("../utils/placeorderTestData.json")));
 
 test('Client App Login E2E in Page Object', async ({ page }) => {
-    //const
-    const username = 'sonijigar94@gmail.com';
-    const password = 'Test1234';
+    
     const poManager = new POManager(page);
-    //login
     const loginPage = poManager.getLoginPage();
     await loginPage.goTo();
-    await loginPage.validLogin(username, password);
+    await loginPage.validLogin(dataset.username, dataset.password);
     const dashboardPage = poManager.getDashboardPage();
-    //product name 
-    const productName = 'ZARA COAT 3'
-    await dashboardPage.searchProductAddCart(productName);
+    await dashboardPage.searchProductAddCart(dataset.productName);
     await dashboardPage.navigateToCart();
     const cartPage = poManager.getCartPage();
-    await cartPage.verifyProductIsDisplayed(productName);
+    await cartPage.verifyProductIsDisplayed(dataset.productName);
     await cartPage.Checkout();
     const orderReviewPage = poManager.getOrderReviewPage();
     await orderReviewPage.searchCountryAndSelect("ind", "India");
-    const orderId = await orderReviewPage.SubmitAndGetOrderId(username);
+    const orderId = await orderReviewPage.SubmitAndGetOrderId(dataset.username);
     console.log(orderId);
     await dashboardPage.navigateToOrders();
     const orderHistoryPage = poManager.getOrderHistoryPage();
