@@ -8,13 +8,16 @@ import { permission } from 'node:process';
 const config = ({
   testDir: './tests',
   timeout: 30 * 1000,
+  retries: 1, // fail test case will retry one time
+  //workers: 3, // parallel running test
   expect: {
     timeout: 5 * 1000,
   },
   reporter: 'html',
+
   projects: [
     {
-      name: 'safari',
+      name: 'chrome',
       use: {
         browerName: 'webkit',
         headless: true,
@@ -24,11 +27,10 @@ const config = ({
         ignoreHttpsErrors: true, // private or ssl certification error
         permission: ['geolocation'], // allow location 
         video: 'retain-on-failure', // on, off, retain-on-failure, on-first-retry
-
       }
     },
     {
-      name: 'chrome',
+      name: 'safari',
       use: {
         browerName: 'chrominum',
         headless: true,

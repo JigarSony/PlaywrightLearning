@@ -1,7 +1,7 @@
 const { test, expect, request } = require('@playwright/test');
 const loginPayload = { userEmail: "sonijigar94@gmail.com", userPassword: "Test1234" }
 const orderPayload = { orders: [{ country: "Cuba", productOrderedId: "6960eac0c941646b7a8b3e68" }] }
-const { APIUtils } = require('./utils/APIUtils');
+const { APIUtils } = require('../utils/APIUtils');
 let response;
 
 
@@ -40,6 +40,6 @@ test('Place an Order', async ({ page }) => {
     }
 
     const orderIdDetailsPage = await page.locator(".col-text").textContent();
-    await page.pause();
+    // await page.pause();
     expect(response.orderId.includes(orderIdDetailsPage)).toBeTruthy();
 });

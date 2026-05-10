@@ -377,7 +377,7 @@ test('Place an Order', async ({ page }) => {
     }
 
     const orderIdDetailsPage = await page.locator(".col-text").textContent();
-    await page.pause();
+    // await page.pause();
     expect(response.orderId.includes(orderIdDetailsPage)).toBeTruthy();
 });
 ```
@@ -1222,4 +1222,25 @@ permission: ['geolocation'], // allow location
 
 ```node
 video: 'retain-on-failure', // on, off, retain-on-failure, on-first-retry
+This video display on default report only
+```
+
+## Lect#93 - Retry
+
+```node
+retries: 1, // fail test case will retry one time
+```
+
+## Lect#94 - Parallel Mode
+// By Default test run in serial mode test, present in the same file (For Ex - 1 Sepc file have 3 test block in it so those run 1 by one)
+But in folder all test will run in parrallel (test files will trigger parallel)
+// individual test in the file will run in sequence
+
+//workers: 3, // parallel running test
+
+## Lect#95 - Parallel Test in same file - Lect95_MoreValidation.spec.js
+
+```javascript
+test.describe.configure({mode:'parallel'});
+test.describe.configure({mode:'serial'}); - If 1 fail then skip below
 ```
