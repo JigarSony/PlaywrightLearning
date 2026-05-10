@@ -4,10 +4,10 @@ import { POManager } from '../pageobjects/POManager';
 
 test('Client App Login E2E in Page Object', async ({ page }) => {
     // const
-    const username='sonijigar94@gmail.com'
-    const password = 'Test1234',
+    const username='sonijigar94@gmail.com';
+    const password = 'Test1234';
     //product name 
-    const productName = 'ZARA COAT 3' 
+    const productName = 'ZARA COAT 3';
     
     const poManager = new POManager(page);
     const loginPage = poManager.getLoginPage();
