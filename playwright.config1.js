@@ -7,7 +7,7 @@ import { permission } from 'node:process';
  */
 const config = ({
   testDir: './tests',
-  timeout: 300 * 1000,
+  timeout: 30 * 1000,
   expect: {
     timeout: 5 * 1000,
   },
@@ -23,6 +23,7 @@ const config = ({
         // viewport: {width:720, height:720}, // change behaviour on web page - to check responsive
         ignoreHttpsErrors: true, // private or ssl certification error
         permission: ['geolocation'], // allow location 
+        video: 'retain-on-failure', // on, off, retain-on-failure, on-first-retry
 
       }
     },

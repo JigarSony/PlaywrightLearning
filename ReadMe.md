@@ -1217,3 +1217,9 @@ ignoreHttpsErrors: true, // private or ssl certification error
 ...devices['iPhone 11'] //this will open iphone screen type
 permission: ['geolocation'], // allow location 
 ```
+
+## Lect#92 - Record video
+
+```node
+video: 'retain-on-failure', // on, off, retain-on-failure, on-first-retry
+```
