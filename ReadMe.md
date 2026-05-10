@@ -1254,3 +1254,12 @@ test.describe.configure({mode:'serial'}); - If 1 fail then skip below
 npx playwright test --grep @Web
 Give like this test('@Web UI Test')
 ```
+
+## Lect#98 - Report
+
+```node
+npx i -D @playwright/test allure-playwright
+npx playwright test --grep @Web --reporter=line,allure-playwright
+allure generate ./allure-results --clean
+allure open ./allure-report
+```
