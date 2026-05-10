@@ -1232,15 +1232,25 @@ retries: 1, // fail test case will retry one time
 ```
 
 ## Lect#94 - Parallel Mode
-// By Default test run in serial mode test, present in the same file (For Ex - 1 Sepc file have 3 test block in it so those run 1 by one)
-But in folder all test will run in parrallel (test files will trigger parallel)
-// individual test in the file will run in sequence
 
-//workers: 3, // parallel running test
+```
+By Default test run in serial mode test, present in the same file (For Ex - 1 Sepc file have 3 test block in it so those run 1 by one)
+But in folder all test will run in parrallel (test files will trigger parallel)
+individual test in the file will run in sequence
+
+workers: 3, // parallel running test
+```
 
 ## Lect#95 - Parallel Test in same file - Lect95_MoreValidation.spec.js
 
 ```javascript
 test.describe.configure({mode:'parallel'});
 test.describe.configure({mode:'serial'}); - If 1 fail then skip below
+```
+
+## Lect#97 - Tag
+
+```npm
+npx playwright test --grep @Web
+Give like this test('@Web UI Test')
 ```
