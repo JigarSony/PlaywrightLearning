@@ -1263,3 +1263,14 @@ npx playwright test --grep @Web --reporter=line,allure-playwright
 allure generate ./allure-results --clean
 allure open ./allure-report
 ```
+
+## Lect#99 - Package.json
+
+```node
+"scripts": {
+    "test": "npx playwright test tests/WebAPIPart1.spec.js --headed",
+    "web": "npx playwright test --grep @Web",
+    "API": "npx playwright test --grep @API",
+    "SafariNewConfig": "npx playwright test --config playwright.config1.js --projectName=safari"
+  },
+```
