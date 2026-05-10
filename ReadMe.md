@@ -1208,3 +1208,12 @@ npx playwright test test/<filename> --config playwright.config1.js --project=saf
 ```
 
 If project parameter was not given then it'll run in both chrome and safari
+
+## Lect#91 - More config settings for device and permission
+
+```node
+viewport: {width:720, height:720}, // change behaviour on web page - to check responsive
+ignoreHttpsErrors: true, // private or ssl certification error
+...devices['iPhone 11'] //this will open iphone screen type
+permission: ['geolocation'], // allow location 
+```

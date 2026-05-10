@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import { permission } from 'node:process';
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -18,7 +19,10 @@ const config = ({
         browerName: 'webkit',
         headless: true,
         screenshot: 'on', // on, off, only-on-failure
-        trace: 'on' //'retain-on-failure' // off, on
+        trace: 'on', //'retain-on-failure' // off, on
+        // viewport: {width:720, height:720}, // change behaviour on web page - to check responsive
+        ignoreHttpsErrors: true, // private or ssl certification error
+        permission: ['geolocation'], // allow location 
 
       }
     },
@@ -28,7 +32,8 @@ const config = ({
         browerName: 'chrominum',
         headless: true,
         screenshot: 'on', // on, off, only-on-failure
-        trace: 'on' //'retain-on-failure' // off, on
+        trace: 'on', //'retain-on-failure' // off, on
+        ...devices['iPhone 11'] //this will open iphone screen type
 
       }
     }
