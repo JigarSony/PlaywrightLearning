@@ -1122,3 +1122,89 @@ test(`Client App Login E2E in Page Object with Json and Iteration ${data.product
 ```
 
 ## Lect #88 - Test Data from Fixture - FileName - Lect88_ClientAppPOWithFixture.spec.js
+
+## Lect #89 - Use CopyPrompt to debug issue on LLM
+
+## Lect #90 - When you need to run TC on different config then
+
+## config1.js
+
+```npm
+// @ts-check
+import { defineConfig, devices } from '@playwright/test';
+
+/**
+ * @see https://playwright.dev/docs/test-configuration
+ */
+const config = ({
+  testDir: './tests',
+  timeout: 300 * 1000,
+  expect: {
+    timeout: 5 * 1000,
+  },
+  reporter: 'html',
+
+  use: {
+    browerName: 'webkit', -- this will run on safari
+    headless: false,
+    screenshot: 'on', // on, off, only-on-failure
+    trace: 'on' //'retain-on-failure' // off, on
+  }
+});
+
+module.exports = config
+```
+
+```node
+npx playwright test test/<filename> --config playwright.config1.js
+```
+
+Based on this we can't make different config so let's make config for all
+
+```node
+// @ts-check
+import { defineConfig, devices } from '@playwright/test';
+
+/**
+ * @see https://playwright.dev/docs/test-configuration
+ */
+const config = ({
+  testDir: './tests',
+  timeout: 300 * 1000,
+  expect: {
+    timeout: 5 * 1000,
+  },
+  reporter: 'html',
+  projects: [
+    {
+      name: 'safari',
+      use: {
+        browerName: 'webkit',
+        headless: true,
+        screenshot: 'on', // on, off, only-on-failure
+        trace: 'on' //'retain-on-failure' // off, on
+
+      }
+    },
+    {
+      name: 'chrome',
+      use: {
+        browerName: 'chrominum',
+        headless: true,
+        screenshot: 'on', // on, off, only-on-failure
+        trace: 'on' //'retain-on-failure' // off, on
+
+      }
+    }
+  ],
+
+});
+
+module.exports = config
+```
+
+```node
+npx playwright test test/<filename> --config playwright.config1.js --project=safari
+```
+
+If project parameter was not given then it'll run in both chrome and safari

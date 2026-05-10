@@ -15,8 +15,7 @@ const config = ({
   use: {
     browerName: 'chrominum',
     headless: false,
-    screenshot: 'on',
-    // trace: 'on'
+    screenshot: 'on', // on, off, only-on-failure
     trace: 'on' //'retain-on-failure' // off, on
   }
 });
