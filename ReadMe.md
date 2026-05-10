@@ -1120,3 +1120,5 @@ test(`Client App Login E2E in Page Object with Json and Iteration ${data.product
 }
 ]
 ```
+
+## Lect #88 - Test Data from Fixture - FileName - Lect88_ClientAppPOWithFixture.spec.js
