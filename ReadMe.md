@@ -1264,7 +1264,7 @@ allure generate ./allure-results --clean
 allure open ./allure-report
 ```
 
-## Lect#99 - Package.json
+## Lect#99 & #100 - Package.json
 
 ```node
 "scripts": {
@@ -1273,4 +1273,19 @@ allure open ./allure-report
     "API": "npx playwright test --grep @API",
     "SafariNewConfig": "npx playwright test --config playwright.config1.js --projectName=safari"
   },
+```
+
+## Lect#101 & #102 - Install Jenkins
+
+```text
+Download & Install Jenkins
+Java >=/25 - https://medium.com/@akhiltheguitarist/setting-up-java-path-on-macos-11d51e89a55f
+
+http://localhost:8080/
+Initial Password
+Create job
+Make job as Parameterized
+In Script : add smoke, regression etc
+Mac: npm run "$script"
+Windows: npm run "%script%"
 ```

@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test tests/WebAPIPart1.spec.js --headed",
+    "wspecificTest": "npx playwright test tests/WebAPIPart1.spec.js --headed",
+    "smoke": "npx playwright test --g @smoke",
+    "test": "npx playwright test",
     "web": "npx playwright test --grep @Web",
     "API": "npx playwright test --grep @API",
     "SafariNewConfig": "npx playwright test --config playwright.config1.js --projectName=safari"
