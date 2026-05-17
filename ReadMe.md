@@ -1289,3 +1289,22 @@ In Script : add smoke, regression etc
 Mac: npm run "$script"
 Windows: npm run "%script%"
 ```
+
+## Lect#104 - TypeScript
+
+```text
+TypeScript - JavaScript + Additional features
+JavaScript run on node directly
+TypeScript code is not run directl on node
+TypeScript -> JS -> node
+demo.ts -> tsc demo.ts -> demo.js
+demo.js      and demo1.ts
+demo.js can run directly node demo.js but demo1.ts not
+tsc demo1.ts -> demo1.js then you can run node demo1.js file
+```
+
+```npm
+install TypeScript - npm install --save-dev typescript
+```
+
+![Alt Text](imagesRM/jsts.png)
