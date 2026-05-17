@@ -1,44 +1,14 @@
-let message1 : string = "Hello"; // static typing
-// message1 = 2; // strong typing
-message1 = "bye" // allowed
-console.log(message1);
-let age1:number = 20;
-console.log(age1);
-let isActive : boolean = false
-console.log(isActive);
-let numberArr: number[] = [1,2,3];
-console.log(numberArr);
-let data:any = "this could be anything";
-data = 42;
-console.log(data);
-
-/**
- * ouptout
- * bye
- * 20
- * false
- * [ 1, 2, 3 ]
- * 42
- */
-
-function add1 (a:number,b:number):number{
-    return a+b;
-}
-
-add1(3,4)
-
-let user1: {name: string, age: number} = { name: "Bob", age: 34 };
-
 import { expect, Locator, Page } from "@playwright/test";
-class CartPage{
-    page: Page;
-    cartProducts: Locator;
-    productsText: Locator;
-    cart: Locator;
-    orders: Locator;
-    checkout: Locator;
 
-    constructor(page:any){
+export class CartPage{
+    page: Page;
+    cartProducts:Locator;
+    productsText: Locator;
+    cart:Locator;
+    orders:Locator;
+    checkout:Locator;
+
+    constructor(page:Page){
         this.page=page;
         this.cartProducts = page.locator("div li").first();
         this.productsText = page.locator("div.cartSection h3");
@@ -46,7 +16,7 @@ class CartPage{
         this.orders=page.locator("button[routerlink*='myorders']");
         this.checkout = page.locator("text=Checkout");
     }
-    async verifyProductIsDisplayed(productName:any) {
+    async verifyProductIsDisplayed(productName:string) {
         //wait for first item should be loaded
         await this.cartProducts.waitFor();
         //checking in cart this product is visible or not
@@ -59,7 +29,7 @@ class CartPage{
     async Checkout(){
         await this.checkout.click();
     }
-    getProductlocator(productName:any) {
+    getProductlocator(productName:string) {
         return this.page.locator("h3:has-text('"+productName+"')");
     }
 }

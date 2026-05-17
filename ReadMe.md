@@ -1233,7 +1233,7 @@ retries: 1, // fail test case will retry one time
 
 ## Lect#94 - Parallel Mode
 
-```
+```text
 By Default test run in serial mode test, present in the same file (For Ex - 1 Sepc file have 3 test block in it so those run 1 by one)
 But in folder all test will run in parrallel (test files will trigger parallel)
 individual test in the file will run in sequence
@@ -1308,3 +1308,45 @@ install TypeScript - npm install --save-dev typescript
 ```
 
 ![alt text](https://github.com/JigarSony/PlaywrightLearning/blob/master/imagesRM/jsts.png?raw=true)
+
+```js
+demo.js
+let message = "Hello";
+message = 2;
+console.log(message);
+let age = 10;
+console.log(age);
+
+/**
+ * output:
+ * 2
+ * 10
+ */
+```
+
+```ts
+let message1 : string = "Hello"; // static typing
+// message1 = 2; // strong typing
+message1 = "bye" // allowed
+console.log(message1);
+let age1:number = 20;
+console.log(age1);
+let isActive : boolean = false
+console.log(isActive);
+let numberArr: number[] = [1,2,3];
+console.log(numberArr);
+let data:any = "this could be anything";
+data = 42;
+console.log(data);
+
+/**
+ * ouptout
+ * bye
+ * 20
+ * false
+ * [ 1, 2, 3 ]
+ * 42
+ */
+```
+
+## Lect# 105 - 109 converted JStoTS

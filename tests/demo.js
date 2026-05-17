@@ -9,3 +9,13 @@ console.log(age);
  * 2
  * 10
  */
+
+function add (a,b){
+    return a+b;
+}
+
+add(3,"4"); // 34
+add(3,4); // 7
+
+let user = {name: "Bob", age:"34"};
+user.location = "Mumbai";
