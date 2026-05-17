@@ -1307,4 +1307,4 @@ tsc demo1.ts -> demo1.js then you can run node demo1.js file
 install TypeScript - npm install --save-dev typescript
 ```
 
-![Alt Text](imagesRM/jsts.png)
+![alt text](https://github.com/JigarSony/PlaywrightLearning/blob/master/imagesRM/jsts.png)
