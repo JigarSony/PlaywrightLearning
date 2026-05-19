@@ -3,13 +3,7 @@ const { POManager } = require('../../pageobjects/POManager');
 const { chromium, expect } = require('@playwright/test');
 
 Given('a login to Ecommerce application with {string} and {string}', { timeout: 100 * 1000 }, async function (username, password) {
-    this.browser = await chromium.launch({
-        headless: false
-    });
-    this.context = await this.browser.newContext();
-    const page = await this.context.newPage();
     this.username = username;
-    this.poManager = new POManager(page);
     this.loginPage = this.poManager.getLoginPage();
     await this.loginPage.goTo();
     await this.loginPage.validLogin(username, password);
