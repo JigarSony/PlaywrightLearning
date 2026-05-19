@@ -1520,3 +1520,29 @@ Feature: Ecommerce2 validation
 ```
 
 `This above Feature runs two time as added two dataset`
+
+## Lect #118 - Parrallel Execution
+
+`In Cucumber Scenarios can run parallely not the feature files`
+
+```gherkin
+Feature: Ecommerce validation
+    @Regression
+    Scenario: Placing the order
+        Given a login to Ecommerce application with "sonijigar94@gmail.com" and "Test1234"
+        When Add "ZARA COAT 3" to Cart
+        Then Verify "ZARA COAT 3" is displayed in the Cart
+        When Enter valida details and Place the Order
+        Then Verify order is presernt in the OrderHistory
+
+    @Smoke
+    Scenario: Placing the order
+        Given a login to Ecommerce2 application with "rahulshettyacademy1" and "Learning@830$3mK2"
+        Then Verify Error message is displayed
+```
+
+`How to run parallel - npx cucumber-js features/ErrorValidationWithParallelRun.feature --parallel 2 --exit`
+
+`HTML - Report - npx cucumber-js features/ErrorValidationWithParallelRun.feature --parallel 2 --exit --format html:cucumber-report.html`
+
+`How to re-run only failed Testcases CLI: npx cucumber-js features/ErrorValidationWithParallelRun.feature --parallel 2 --exit --format html:cucumber-report.html --retry 1`
