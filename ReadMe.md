@@ -1503,3 +1503,20 @@ After(async function () {
 `How to run individual feature file npx cucumber-js feature/ErrorValidation.feature --exit`
 
 `How to run with tag - npx cucumber-js --tags "@Regression" --exit`
+
+### Lect #117 - Parameterization
+
+```gherkin
+Feature: Ecommerce2 validation
+    @Smoke
+    Scenario Outline: Placing the order
+        Given a login to Ecommerce2 application with "<username>" and "<password>"
+        Then Verify Error message is displayed
+
+        Examples:
+        |   username              |   password            |
+        |   rahulshettyacademy1   |   Learning@830$3mK2   |
+        |   hello@123.com         |   Iamhello@12         |
+```
+
+`This above Feature runs two time as added two dataset`
