@@ -34,3 +34,18 @@ Then('Verify order is presernt in the OrderHistory',{ timeout: 100 * 1000 }, asy
     await orderHistoryPage.searchorderAndSelect(this.orderId);
     expect((await orderHistoryPage.getOrderId())).toBeTruthy();
 });
+
+Given('a login to Ecommerce2 application with {string} and {string}',async function (userName, password) {
+    await this.page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    console.log(await this.page.title());
+    await this.page.locator('#username').fill(userName);
+    await this.page.locator('#password').fill(password);
+    // page.locator('#terms').click();
+    await this.page.locator('#signInBtn').click();
+});
+       
+
+Then('Verify Error message is displayed', async function () {
+    console.log(await this.page.locator("[style*='block']").textContent());
+    await expect(this.page.locator("[style*='block']")).toContainText("Incorrect");
+});

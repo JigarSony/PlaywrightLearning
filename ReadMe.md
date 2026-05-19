@@ -1497,3 +1497,9 @@ After(async function () {
     console.log("I am last to execute");
 })
 ```
+
+## Lect #116 - Tag
+
+`How to run individual feature file npx cucumber-js feature/ErrorValidation.feature --exit`
+
+`How to run with tag - npx cucumber-js --tags "@Regression" --exit`

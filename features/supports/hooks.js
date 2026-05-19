@@ -19,7 +19,8 @@ BeforeStep(function () {
 
 AfterStep(async function ({ result }) {
     if (result.status === Status.FAILED) {
-        await this.page.screenshot({ path: 'sceenshot1.png' });
+        let timestamp = new Date().getTime();
+        await this.page.screenshot({ path: "Fail_" + timestamp + "".png });
     }
 })
 
