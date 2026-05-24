@@ -1583,3 +1583,11 @@ git commit -m "your commit message"
 git branch -M main
 git remote add origin "your repo link"
 git push -u orifin main
+
+## Lect#125 - GitHub Actions
+
+[PlayWright GitHub Actions](https://playwright.dev/docs/ci-intro#setting-up-github-actions)
+
+[GitHub Action](https://docs.github.com/en/actions/get-started/understand-github-actions)
+
+[GitHub Action Azure login](https://github.com/marketplace/actions/azure-login)

@@ -1,0 +1,16 @@
+# First get the storage account resource ID
+az storage account show \
+  --name "pwstrgrrd4320" \
+  --resource-group "rrd" \
+  --query id -o tsv
+
+
+
+
+
+//
+
+  az role assignment create \
+  --assignee "a5730766-84f8-4d8e-bbed-54f85d7ff" \
+  --role "Storage Blob Data Contributor" \
+  --scope "$(az storage account show --name pwstrgrrd9171 --resource-group rrd --query id -o tsv)"

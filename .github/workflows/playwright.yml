@@ -9,6 +9,7 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
+      
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
       with:
@@ -17,12 +18,20 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Install system dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y xvfb
+
+    - name: Azure Login
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    # - name: Install system dependencies
+    #   run: |
+    #     sudo apt-get update
+    #     sudo apt-get install -y xvfb
     - name: Run Playwright tests
-      run: npx playwright test
+      env:
+        PLAYWRIGHT_SERVICE_URL: ${{ vars.PLAYWRIGHT_SERVICE_URL }}
+      run: npx playwright test --config=playwright.service.config.js --workers=4
+        # npx playwright test
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
