@@ -1562,3 +1562,13 @@ az role assignment create \
   --scope "$(az storage account show --name <storageGroup> --resource-group <resouceGroup> --query id -o tsv)"
 
 ```
+
+## Lect #123
+
+```npx playwright test --config=playwright.service.config.js --workers=20```
+
+`Let this run and see report on azure`
+
+## Lect #124
+
+![alt text](https://github.com/JigarSony/PlaywrightLearning/blob/master/imagesRM/AzureGithub.png?raw=true)
