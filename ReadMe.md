@@ -1572,3 +1572,14 @@ az role assignment create \
 ## Lect #124
 
 ![alt text](https://github.com/JigarSony/PlaywrightLearning/blob/master/imagesRM/AzureGithub.png?raw=true)
+
+`Create Github Account > Create Repository > push code in github`
+
+install git in local machine
+command > existing repo
+git init
+git add .
+git commit -m "your commit message"
+git branch -M main
+git remote add origin "your repo link"
+git push -u orifin main
