@@ -1546,3 +1546,19 @@ Feature: Ecommerce validation
 `HTML - Report - npx cucumber-js features/ErrorValidationWithParallelRun.feature --parallel 2 --exit --format html:cucumber-report.html`
 
 `How to re-run only failed Testcases CLI: npx cucumber-js features/ErrorValidationWithParallelRun.feature --parallel 2 --exit --format html:cucumber-report.html --retry 1`
+
+## Lect #121 and #122
+
+```text
+Create an acount in azure, create workspace, get storage, add user id and repos
+Assign repo to that user and storage
+
+Link - Get started 
+
+Command
+az role assignment create \
+  --assignee "<Microsoft Entra> ObjectID>" \
+  --role "Storage Blob Data Contributor" \
+  --scope "$(az storage account show --name <storageGroup> --resource-group <resouceGroup> --query id -o tsv)"
+
+```
